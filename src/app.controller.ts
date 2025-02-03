@@ -1,15 +1,37 @@
-import { Controller, Get, Param, Render } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Render, Res } from '@nestjs/common';
 import { AppService } from './app.service';
+import { join } from 'path';
+import { readFileSync, writeFileSync } from 'fs';
+import { Addcontact } from './todo/todo.dto';
+import { Response } from 'express';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('/user/:name')
-  @Render('index')
-  index(@Param('name') name:string){
+  private path = join(__dirname,'..','apis','Contact.json');
+  private contactdata = JSON.parse(readFileSync(this.path,'utf-8') || '[]');
 
-    return { name}
+  @Get('/')
+  @Render('index')
+  index(@Query('success') success:string){
+
+    return { success }
+  }
+
+  @Post('/contact')
+  addcontact(@Body()  data:Addcontact,@Res() res:Response){
+
+    const item = {
+
+      id:new Date().getTime(),
+      ...data
+    }
+
+    this.contactdata.push(item);
+    writeFileSync(this.path,JSON.stringify(this.contactdata));
+
+    return res.redirect('/?msg=Data Added Successfully')
   }
 
   // @Get()

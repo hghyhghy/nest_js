@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateDTO = exports.CreateTodo = void 0;
+exports.Addcontact = exports.UpdateDTO = exports.CreateTodo = void 0;
 const class_validator_1 = require("class-validator");
 class CreateTodo {
 }
@@ -29,4 +29,20 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: "Please Provide Your title" }),
     __metadata("design:type", String)
 ], UpdateDTO.prototype, "title", void 0);
+class Addcontact {
+}
+exports.Addcontact = Addcontact;
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: "Please Provide Your name" }),
+    __metadata("design:type", String)
+], Addcontact.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.IsNotEmpty)({ message: "Please Provide Your email" }),
+    __metadata("design:type", String)
+], Addcontact.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: "Please Enter Your Message" }),
+    __metadata("design:type", String)
+], Addcontact.prototype, "msg", void 0);
 //# sourceMappingURL=todo.dto.js.map

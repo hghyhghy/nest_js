@@ -1,10 +1,15 @@
 import { AppService } from './app.service';
+import { Addcontact } from './todo/todo.dto';
+import { Response } from 'express';
 export declare class AppController {
     private readonly appService;
     constructor(appService: AppService);
-    index(name: string): {
-        name: string;
+    private path;
+    private contactdata;
+    index(success: string): {
+        success: string;
     };
+    addcontact(data: Addcontact, res: Response): void;
     Login(): {
         name: string;
     };

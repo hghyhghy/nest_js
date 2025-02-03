@@ -5,3 +5,8 @@ export declare class CreateTodo {
 export declare class UpdateDTO {
     title: string;
 }
+export declare class Addcontact {
+    name: string;
+    email: string;
+    msg: string;
+}

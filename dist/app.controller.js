@@ -15,12 +15,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
+const path_1 = require("path");
+const fs_1 = require("fs");
+const todo_dto_1 = require("./todo/todo.dto");
 let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
+        this.path = (0, path_1.join)(__dirname, '..', 'apis', 'Contact.json');
+        this.contactdata = JSON.parse((0, fs_1.readFileSync)(this.path, 'utf-8') || '[]');
     }
-    index(name) {
-        return { name };
+    index(success) {
+        return { success };
+    }
+    addcontact(data, res) {
+        const item = {
+            id: new Date().getTime(),
+            ...data
+        };
+        this.contactdata.push(item);
+        (0, fs_1.writeFileSync)(this.path, JSON.stringify(this.contactdata));
+        return res.redirect('/?msg=Data Added Successfully');
     }
     Login() {
         return { name: "<h1>Weilcome to nest js</h1>" };
@@ -28,13 +42,21 @@ let AppController = class AppController {
 };
 exports.AppController = AppController;
 __decorate([
-    (0, common_1.Get)('/user/:name'),
+    (0, common_1.Get)('/'),
     (0, common_1.Render)('index'),
-    __param(0, (0, common_1.Param)('name')),
+    __param(0, (0, common_1.Query)('success')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "index", null);
+__decorate([
+    (0, common_1.Post)('/contact'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [todo_dto_1.Addcontact, Object]),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "addcontact", null);
 __decorate([
     (0, common_1.Get)('/login'),
     __metadata("design:type", Function),
