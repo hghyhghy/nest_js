@@ -1,7 +1,9 @@
 
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UsePipes } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodo, UpdateDTO } from './todo.dto';
+import { TodoPipe } from './todo.pipe';
+import { get } from 'http';
 
 @Controller('todo')
 export class TodoController {
@@ -47,6 +49,20 @@ export class TodoController {
             total:this.todos.length,
             msg:"Todo is created"
         }
+
+    }
+
+    @Get('/usertodo/:id/:slug')
+    getUser1(@Param () data,@Query('search') sea:string){
+
+        return {data:JSON.stringify(data),sea}
+    }
+
+    @Get('user/:id')
+    @UsePipes(TodoPipe)
+    getuser(@Param('id') id:number){
+      
+        return {id}
 
     }
 

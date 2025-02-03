@@ -21,6 +21,13 @@ export declare class TodoController {
         total: number;
         msg: string;
     };
+    getUser1(data: any, sea: string): {
+        data: string;
+        sea: string;
+    };
+    getuser(id: number): {
+        id: number;
+    };
     updatetodo(id: number, data: UpdateDTO): {
         msg: string;
     };

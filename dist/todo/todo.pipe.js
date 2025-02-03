@@ -6,12 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TodoModule = void 0;
+exports.TodoPipe = void 0;
 const common_1 = require("@nestjs/common");
-let TodoModule = class TodoModule {
+let TodoPipe = class TodoPipe {
+    transform(value, metadata) {
+        value.id = value.id + "arr";
+        return value;
+    }
 };
-exports.TodoModule = TodoModule;
-exports.TodoModule = TodoModule = __decorate([
-    (0, common_1.Module)({})
-], TodoModule);
-//# sourceMappingURL=todo.module.js.map
+exports.TodoPipe = TodoPipe;
+exports.TodoPipe = TodoPipe = __decorate([
+    (0, common_1.Injectable)()
+], TodoPipe);
+//# sourceMappingURL=todo.pipe.js.map

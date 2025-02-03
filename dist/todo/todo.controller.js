@@ -16,6 +16,7 @@ exports.TodoController = void 0;
 const common_1 = require("@nestjs/common");
 const todo_service_1 = require("./todo.service");
 const todo_dto_1 = require("./todo.dto");
+const todo_pipe_1 = require("./todo.pipe");
 let TodoController = class TodoController {
     constructor(todoservice) {
         this.todoservice = todoservice;
@@ -42,6 +43,12 @@ let TodoController = class TodoController {
             total: this.todos.length,
             msg: "Todo is created"
         };
+    }
+    getUser1(data, sea) {
+        return { data: JSON.stringify(data), sea };
+    }
+    getuser(id) {
+        return { id };
     }
     updatetodo(id, data) {
         const new_todo = this.todos.map((curr, i) => {
@@ -86,6 +93,22 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "gettodo", null);
+__decorate([
+    (0, common_1.Get)('/usertodo/:id/:slug'),
+    __param(0, (0, common_1.Param)()),
+    __param(1, (0, common_1.Query)('search')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", void 0)
+], TodoController.prototype, "getUser1", null);
+__decorate([
+    (0, common_1.Get)('user/:id'),
+    (0, common_1.UsePipes)(todo_pipe_1.TodoPipe),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], TodoController.prototype, "getuser", null);
 __decorate([
     (0, common_1.Put)('/update/:id'),
     __param(0, (0, common_1.Param)('id')),
